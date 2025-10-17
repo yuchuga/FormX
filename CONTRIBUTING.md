@@ -1,23 +1,22 @@
 ## Reporting Bugs/Feature Requests
 
-We welcome you to use the GitHub issue tracker to report bugs or suggest features.
+We welcome you to use the GitHub issue tracker to report bugs / suggest features.
 
-When filing an issue, please check existing open, or recently closed, issues to make sure somebody else hasn't already
-reported the issue. Please try to include as much information as you can. Details like these are incredibly useful:
+When filing an issue, please check existing open, recently closed issues to ensure others have not reported similar issue. Please include information as follows:
 
-* A reproducible test case or series of steps
+* A reproducible test case / series of steps
 * The version of our code being used
-* Any modifications you've made relevant to the bug
+* Any modifications you have made relevant to the bug
 * Anything unusual about your environment or deployment
 
 ## Contributing via Pull Requests
-Contributions via pull requests are much appreciated. Before sending us a pull request, please ensure that:
+Before sending us a pull request, please ensure:
 
 1. You are working against the latest source on the *main* branch.
-2. You check existing open, and recently merged, pull requests to make sure someone else hasn't addressed the problem already.
-3. You open an issue to discuss any significant work - we would hate for your time to be wasted.
+2. You check existing open and recently merged pull requests to ensure others have not addressed similar problem.
+3. You open an issue to discuss any significant work.
 
-To send us a pull request, please:
+Send us a pull request:
 
 1. Fork the repository.
 2. Modify the source; please focus on the specific change you are contributing. If you also reformat all the code, it will be hard for us to focus on your change.
@@ -32,11 +31,7 @@ GitHub provides additional document on [forking a repository](https://help.githu
 ## Code of Conduct
 This project has adopted the [Amazon Open Source Code of Conduct](https://aws.github.io/code-of-conduct).
 For more information see the [Code of Conduct FAQ](https://aws.github.io/code-of-conduct-faq) or contact
-opensource-codeofconduct@amazon.com with any additional questions or comments.
+opensource-codeofconduct@amazon.com with any additional questions/comments.
 
 ## Security issue notifications
 If you discover a potential security issue in this project we ask that you notify AWS/Amazon Security via our [vulnerability reporting page](http://aws.amazon.com/security/vulnerability-reporting/). Please do **not** create a public github issue.
-
-## Licensing
-
-See the [LICENSE](LICENSE) file for our project's licensing. We will ask you to confirm the licensing of your contribution.
