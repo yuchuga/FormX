@@ -7,13 +7,8 @@ const Notification = () => {
 
   const anchor = { vertical: 'bottom', horizontal: 'right' }
 
-  const handleClick = () => {
-    setOpen(true)
-  };
-
-  const handleClose = () => {
-    setOpen(false)
-  };
+  const handleClick = () => setOpen(true)
+  const handleClose = () => setOpen(false)
   
   return (
     <Stack spacing={2} sx={{ width: '100%' }}>
@@ -22,7 +17,7 @@ const Notification = () => {
       </Button>
       <Snackbar open={open} autoHideDuration={5000} anchorOrigin={anchor} onClose={handleClose}>
         <Alert severity='error' variant='filled' onClose={handleClose} sx={{ width: '100%' }}>
-          This is a error message!
+          This is an error message!
         </Alert>
       </Snackbar>
     </Stack>

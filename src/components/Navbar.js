@@ -1,29 +1,26 @@
-import { useState, useEffect, useContext } from 'react'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import LogoutIcon from '@mui/icons-material/Logout'
-import CartSidebar from './CartSidebar'
+import CartSidebar from './Cart'
 import Searchbar from './Searchbar'
 import Sidebar from './Sidebar'
 import Navlinks from './Navlinks'
+import { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { AppBar, IconButton, Stack, Toolbar } from '@mui/material'
 import { PCData } from '../utils/data.js'
 import { AccountContext } from '../auth/Account'
+import { ROUTES } from '../utils/constants'
+import { flexBetween } from '../themes/commonStyles'
 
 const styles = {
   appbar: {
-    height: 80,
-    justifyContent: 'center'
+    ...flexBetween,
+    height: 80
   },
   toolbar: {
-    justifyContent: 'space-between'
+    ...flexBetween
   }
-}
-
-const routes = {
-  home: '/',
-  login: '/account/login'
-}
+};
 
 const Navbar = () => {
 
@@ -52,15 +49,15 @@ const Navbar = () => {
         <Sidebar />
         <Navlinks />
 
-        <Stack direction='row'>
-          <Link to={routes.login}>
-            <IconButton size='large' color='secondary' aria-label='login'>
+        <Stack>
+          <Link to={ROUTES.LOGIN}>
+            <IconButton size='large' color='secondary'>
               <AccountCircleIcon />
             </IconButton>
           </Link>
 
           {status &&
-            <IconButton size='large' color='secondary' aria-label='logout' onClick={logout}>
+            <IconButton size='large' color='secondary' onClick={logout}>
               <LogoutIcon />
             </IconButton>
           }

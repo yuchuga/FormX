@@ -1,15 +1,16 @@
-import logo from '../assets/images/logo.png'
 import { Link } from 'react-router-dom'
-import { FaDiscord, FaInstagram } from "react-icons/fa"
-import { YouTube } from '@mui/icons-material'
 import { Container, IconButton, Grid, Typography } from '@mui/material'
-import { ThemeProvider, styled } from '@mui/material/styles'
-import { theme } from '../utils/theme.js'
+import { styled } from '@mui/material/styles'
+import { flexAlignCenter, flexBetween, flexColumnCenter2 } from '../themes/commonStyles'
+import { ROUTES } from '../utils/constants'
+import FormxLogo from '../assets/images/Formx_Logo.png'
+import DiscordIcon from '../assets/images/discord.png'
+import InstagramIcon from '@mui/icons-material/Instagram'
+import YouTubeIcon from '@mui/icons-material/YouTube'
 
 const styles = {
   container: {
-    display: 'flex',
-    alignItems: 'center',
+    ...flexAlignCenter,
     background: '#000',
     color: '#fff',
     height: '5rem',
@@ -18,33 +19,23 @@ const styles = {
     }
   },
   grid: {
-    display: 'flex',
-    justifyContent: 'space-between',
+    ...flexBetween,
     '@media (max-width: 430px)': {
-      flexDirection: 'column',
-      alignItems: 'center'
+      ...flexColumnCenter2
     }
   },
   logo: {
-    display: 'flex',
-    alignItems: 'center',
+    ...flexAlignCenter
   },
   copyright: {
-    display: 'flex',
-    alignItems: 'center'
+    ...flexAlignCenter
   }, 
   social: {
     '@media (max-width: 430px)': {
       pb: 2
     }
   }
-}
-
-const routes = {
-  discord: 'https://discord.gg/T9HJsdjv',
-  instagram: 'https://www.instagram.com/formdworks/',
-  youtube: 'https://www.youtube.com/watch?v=RcLdVLr3Oy8',
-}
+};
 
 const Img = styled('img')({
   display: 'block',
@@ -55,38 +46,36 @@ const Img = styled('img')({
 
 const Footer = () => {
   return (
-    <ThemeProvider theme={theme}>
     <Container maxWidth='xl' sx={styles.container}>
       <Grid container sx={styles.grid}>
-        <Grid item sx={styles.logo}>
-         <Img src={logo} alt="logo" /> 
-         <Typography variant='subtitle1'>FORMX</Typography>
+        <Grid sx={styles.logo}>
+          <Item>
+            <Img src={FormxLogo} alt="formx-logo" /> 
+            <Typography variant='subtitle1'>FORMX</Typography>
+         </Item>
         </Grid>
 
-        <Grid item sx={styles.copyright}>
-          <Typography variant='subtitle1'>&copy; 2024 FormX. All Rights Reserved.</Typography>
+        <Grid sx={styles.copyright}>
+          <Item>
+            <Typography variant='subtitle1'>&copy; 2025 FormX. All Rights Reserved.</Typography>
+          </Item>
         </Grid>
 
-        <Grid item sx={styles.social}>
-          <Link to={routes.discord}>
-            <IconButton size='large' color='secondary'>
-              <FaDiscord />
-            </IconButton>
-          </Link>
-          <Link to={routes.instagram}>
-            <IconButton size='large' color='secondary'>
-              <FaInstagram />
-            </IconButton>
-          </Link>
-          <Link to={routes.youtube}>
-            <IconButton size='large' color='secondary'>
-              <YouTube />
-            </IconButton>
-          </Link>
+        <Grid sx={styles.social}>
+          <Item>
+            <Link to={ROUTES.DISCORD}>
+              <IconButton size='large'><DiscordIcon /></IconButton>
+            </Link>
+            <Link to={ROUTES.INSTAGRAM}>
+              <IconButton size='large' color='secondary'><InstagramIcon /></IconButton>
+            </Link>
+            <Link to={ROUTES.YOUTUBE}>
+              <IconButton size='large' color='secondary'><YouTubeIcon /></IconButton>
+            </Link>
+          </Item>
         </Grid>
       </Grid>
     </Container>
-    </ThemeProvider>
   )
 }
 

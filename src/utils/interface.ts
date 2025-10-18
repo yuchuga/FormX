@@ -16,7 +16,6 @@ export interface ILogin {
   password: string
 }
 
-// Login Response
 export interface ILoginResp {
   token: string
   email: string

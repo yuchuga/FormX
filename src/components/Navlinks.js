@@ -1,28 +1,13 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { Button, Menu, MenuItem, Stack } from '@mui/material'
+import { ROUTES } from '../utils/constants'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-
-const routes = {
-  home: '/',
-  product: '/collections/all',
-  formX: '/products/x1',
-  formN: '/products/n1',
-  about: '/pages/about',
-  community: '/pages/community',
-  privacy: '/pages/privacy',
-  scpa: '/pages/scpa-opt-out',
-  support: '/pages/support',
-  terms: '/pages/terms',
-  warranty: '/pages/warranty',
-  discord: 'https://discord.gg/P86qn92eHT',
-  instagram: 'https://www.instagram.com/formdworks/',
-  reddit: 'https://www.reddit.com/r/FormD/?rdt=47020'
-};
+import { hideOnMobile } from '../themes/commonStyles'
 
 const styles = {
   stack: {
-    display: { xs: 'none', sm: 'none', md: 'flex' },
+    ...hideOnMobile,
     margin: 'auto'
   },
   button: {
@@ -54,6 +39,7 @@ const origin2 = {
 };
 
 const Navlinks = () => {
+
   const [anchorP, setAnchorP] = useState(null)
   const [anchorC, setAnchorC] = useState(null)
   const [anchorA, setAnchorA] = useState(null)
@@ -62,79 +48,57 @@ const Navlinks = () => {
   const openC = Boolean(anchorC)
   const openA = Boolean(anchorA)
 
-  const handleClickP = (e) => {
-    setAnchorP(e.currentTarget)
-  };
-
-  const handleClickC = (e) => {
-    setAnchorC(e.currentTarget)
-  };
-
-  const handleClickA = (e) => {
-    setAnchorA(e.currentTarget)
-  };
+  const handleClickP = (e) => setAnchorP(e.currentTarget)
+  const handleClickC = (e) => setAnchorC(e.currentTarget)
+  const handleClickA = (e) => setAnchorA(e.currentTarget)
   
-  const handleCloseP = () => {
-    setAnchorP(null)
-  };
-
-  const handleCloseC = () => {
-    setAnchorC(null)
-  };
-
-  const handleCloseA = () => {
-    setAnchorA(null)
-  };
+  const handleCloseP = () => setAnchorP(null)
+  const handleCloseC = () => setAnchorC(null)
+  const handleCloseA = () => setAnchorA(null)
 
   return (
     <>
-      <Stack direction='row' spacing={3} sx={styles.stack}>
+      <Stack sx={styles.stack}>
         <Button
+          id='product-btn'
+          color='inherit' 
           aria-controls={openP ? 'product-menu' : undefined}
           aria-expanded={openP ? 'true' : undefined}
           aria-haspopup='true' 
-          color='inherit' 
-          id='product-btn'
           onClick={handleClickP}
-          sx={styles.button} 
           endIcon={<KeyboardArrowDownIcon/>}
+          sx={styles.button} 
         >
-          <NavLink to={routes.product} style={styles.nav}>
-            PRODUCT 
-          </NavLink>
+          <NavLink to={ROUTES.PRODUCT} style={styles.nav}>PRODUCT </NavLink>
         </Button>
 
         <Button 
+          id='community-btn'
+          color='inherit' 
           aria-controls={openC ? 'community-menu' : undefined}
           aria-expanded={openC ? 'true' : undefined}
           aria-haspopup='true' 
-          color='inherit' 
-          id='community-btn'
           onClick={handleClickC}
-          sx={styles.button}
           endIcon={<KeyboardArrowDownIcon/>}
+          sx={styles.button}
         >
-          <NavLink to={routes.community} style={styles.nav}>
-            COMMUNITY
-          </NavLink>
+          <NavLink to={ROUTES.COMMUNITY} style={styles.nav}>COMMUNITY</NavLink>
         </Button>
 
-        <Button color='inherit' href={routes.home} sx={styles.button.logo}>FORMX </Button>
-        <Button color='inherit' href={routes.support} sx={styles.button}>SUPPORT</Button>
+        <Button color='inherit' href={ROUTES.HOME} sx={styles.button.logo}>FORMX </Button>
+        <Button color='inherit' href={ROUTES.SUPPORT} sx={styles.button}>SUPPORT</Button>
         
         <Button 
+          id='about-btn'
+          color='inherit'
           aria-controls={openA ? 'about-menu' : undefined}
           aria-expanded={openA ? 'true' : undefined}
           aria-haspopup='true' 
-          color='inherit'
-          id='about-btn'
           onClick={handleClickA} 
-          sx={styles.button}
           endIcon={<KeyboardArrowDownIcon/>}
+          sx={styles.button}
         >
-          <NavLink to={routes.about} style={styles.nav}>
-            ABOUT
-          </NavLink>
+          <NavLink to={ROUTES.ABOUT} style={styles.nav}>ABOUT</NavLink>
         </Button>
       </Stack>
 
@@ -145,11 +109,11 @@ const Navlinks = () => {
         anchorOrigin={origin} 
         open={openP} 
         onClose={handleCloseP} 
-        MenuListProps={menuProps.product} 
+        slotProps={{ list: menuProps.product }}
         transformOrigin={origin2} 
       >
-        <MenuItem component={Link} to={routes.formX}>X Series</MenuItem>
-        <MenuItem component={Link} to={routes.formN}>N Series</MenuItem>
+        <MenuItem component={Link} to={ROUTES.FORMX}>X Series</MenuItem>
+        <MenuItem component={Link} to={ROUTES.FORMN}>N Series</MenuItem>
       </Menu>
 
       <Menu 
@@ -158,12 +122,12 @@ const Navlinks = () => {
         anchorOrigin={origin} 
         open={openC} 
         onClose={handleCloseC} 
-        MenuListProps={menuProps.community} 
+        slotProps={{ list: menuProps.community }}
         transformOrigin={origin2}
       >
-        <MenuItem component={Link} to={routes.discord}>Discord</MenuItem>
-        <MenuItem component={Link} to={routes.instagram}>Instagram</MenuItem>
-        <MenuItem component={Link} to={routes.reddit}>Reddit</MenuItem>
+        <MenuItem component={Link} to={ROUTES.DISCORD}>Discord</MenuItem>
+        <MenuItem component={Link} to={ROUTES.INSTAGRAM}>Instagram</MenuItem>
+        <MenuItem component={Link} to={ROUTES.REDDIT}>Reddit</MenuItem>
       </Menu>
 
       <Menu 
@@ -172,13 +136,13 @@ const Navlinks = () => {
         anchorOrigin={origin} 
         open={openA} 
         onClose={handleCloseA} 
-        MenuListProps={menuProps.about} 
+        slotProps={{ list: menuProps.about }}
         transformOrigin={origin2}
       >
-        <MenuItem component={Link} to={routes.privacy}>Privacy Policy</MenuItem>
-        <MenuItem component={Link} to={routes.terms}>Terms & Conditions</MenuItem>
-        <MenuItem component={Link} to={routes.warranty}>Warranty</MenuItem>
-        <MenuItem component={Link} to={routes.scpa}>SCPA</MenuItem>
+        <MenuItem component={Link} to={ROUTES.PRIVACY}>Privacy Policy</MenuItem>
+        <MenuItem component={Link} to={ROUTES.TERMS}>Terms & Conditions</MenuItem>
+        <MenuItem component={Link} to={ROUTES.WARRANTY}>Warranty</MenuItem>
+        <MenuItem component={Link} to={ROUTES.SCPA}>SCPA</MenuItem>
       </Menu>
     </>
   )

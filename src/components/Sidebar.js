@@ -43,7 +43,7 @@ const Sidebar = () => {
       </IconButton>
       <Drawer anchor='left' open={openDrawer} onClose={handleClose}>
         <Box sx={styles.box}>
-          <Stack direction='row' sx={styles.stack}>
+          <Stack sx={styles.stack}>
             <IconButton size='large' color='secondary' onClick={handleClose}>
               <CloseIcon />
             </IconButton>

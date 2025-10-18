@@ -43,7 +43,9 @@ const ProductCard = ({ product }) => {
       </CardContent>
 
       <CardActions disableSpacing sx={styles.actions}>
-        <IconButton aria-label='Add to Cart' color='secondary' onClick={() => dispatch(add(product))}><AddShoppingCart /></IconButton>
+        <IconButton color='secondary' onClick={() => dispatch(add(product))}>
+          <AddShoppingCart />
+        </IconButton>
       </CardActions>
     </Card>
   )

@@ -1,62 +1,54 @@
-import heroImg from '../assets/images/X1_Series.gif'
+import HeroImg from '../assets/images/X1_Series.gif'
 import { Box, Button, Stack, Typography, useMediaQuery } from '@mui/material'
-import { ThemeProvider } from '@mui/material/styles'
-import { theme } from '../utils/theme.js'
+import { flexEnd2 } from '../themes/commonStyles'
+import { ROUTES } from '../utils/constants'
 
 const styles = {
   box1: {
     background: '#000',
-    height: { xxs: '15rem', sm: '25rem', lg: '35rem' }
+    height: { xs: '15rem', sm: '25rem', lg: '35rem' }
   },
   img: {
     width: '100%',
   },
   stack1: {
-    display: 'flex',
-    alignItems: 'flex-end',
+    ...flexEnd2,
     position: 'relative',
-    top: { xxs: -20, xs: -40, sm: -70, md: -150 },
-    left: { xxs: -30, xs: -40, md: -50 }
+    top: { xs: -40, sm: -70, md: -150 },
+    left: { xs: -40, md: -50 }
   },
   title: {
     color: 'secondary.main',
     fontWeight: 500,
-    fontSize: { xxs: 20, sm: 30, lg: 48 }
+    fontSize: { sm: 30, lg: 50 }
   },
   text: {
     color: 'secondary.main',
-    fontSize: { xxs: 14, sm: 18, lg: 24 }
+    fontSize: { sm: 18, lg: 24 }
   },
   button: { 
     color: 'secondary.main'
   }
-}
-
-const routes = {
-  buy: '/pages/products',
-  discuss: 'https://discord.gg/P86qn92eHT',
-}
+};
 
 const Hero = () => {
   
   const buttonStyle = useMediaQuery('(max-width:430px)') ? 'small' : 'large';
 
   return (
-    <ThemeProvider theme={theme}>
-      <Box sx={styles.box1}>
-        <Box>
-          <img src={heroImg} alt='heroImg' style={styles.img} />
-        </Box>
-        <Stack spacing={1} sx={styles.stack1}>
-          <Typography variant='h3' sx={styles.title}>X SERIES</Typography>
-          <Typography variant='h6' sx={styles.text}>Ultimate Backpack-able PC Build</Typography>
-          <Stack direction='row' spacing={2} sx={styles.stack2}>
-            <Button color='inherit' size={buttonStyle} variant='outlined' href={routes.buy} sx={styles.button}>BUY</Button>
-            <Button color='inherit' size={buttonStyle} variant='outlined' href={routes.discuss} sx={styles.button}>DISCUSS</Button>
-          </Stack>
-        </Stack>
+    <Box sx={styles.box1}>
+      <Box>
+        <img src={HeroImg} alt='heroImg' style={styles.img} />
       </Box>
-    </ThemeProvider>
+      <Stack spacing={1} sx={styles.stack1}>
+        <Typography variant='h3' sx={styles.title}>X SERIES</Typography>
+        <Typography variant='h6' sx={styles.text}>Ultimate Backpackable PC Build</Typography>
+        <Stack>
+          <Button color='inherit' size={buttonStyle} variant='outlined' href={ROUTES.BUY} sx={styles.button}>BUY</Button>
+          <Button color='inherit' size={buttonStyle} variant='outlined' href={ROUTES.DISCUSS} sx={styles.button}>DISCUSS</Button>
+        </Stack>
+      </Stack>
+    </Box>
   )
 }
 

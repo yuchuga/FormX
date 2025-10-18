@@ -3,33 +3,31 @@ import RemoveIcon from '@mui/icons-material/Remove'
 import { Button, ButtonGroup, Card, CardMedia, CardContent, Stack, Typography } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { add, decrease } from '../../redux/cartSlice.js'
+import { flexBetween, flexStart2 } from '../themes/commonStyles.js'
 
 const styles = {
   card: {
-    display: 'flex',
     maxWidth: '100%',
     background: '#000'
   },
   media: {
-    width: '100px',
-    height: '100px',
+    width: '6.25rem',
+    height: '6.25rem',
     margin: 'auto',
     objectFit: 'cover'
   },
   content: {
-    width: '250px',
-    height: '125px'
+    width: '15.625rem',
+    height: '7.5rem'
   },
   stack: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    width: '250px',
-    height: '90px',
+    ...flexStart2,
+    width: '15.625rem',
+    height: '6.25rem',
     mb: 1
   },  
   stack2: {
-    display: 'flex',
-    justifyContent: 'space-between'
+    ...flexBetween
   },
   text: {
     whiteSpace: 'pre-line'
@@ -41,6 +39,7 @@ const styles = {
 };
 
 const CartCard = ({ product }) => {
+  
   const dispatch = useDispatch()
 
   return (
@@ -51,13 +50,13 @@ const CartCard = ({ product }) => {
           <Typography variant='subtitle1' color='secondary'>{product.name}</Typography>
           <Typography variant='body2' color='secondary' align='left' sx={styles.text}>{product.desc}</Typography>
         </Stack>
-        <Stack direction='row' sx={styles.stack2}>
+        <Stack sx={styles.stack2}>
             <ButtonGroup variant='outlined'>
-              <Button color='secondary' size='small' onClick={() => dispatch(decrease(product))}>
+              <Button color='secondary' onClick={() => dispatch(decrease(product))}>
                 <RemoveIcon style={styles.icon}/>
               </Button>
-              <Button color='secondary' size='small'>{product.quantity}</Button>
-              <Button color='secondary' size='small' onClick={() => dispatch(add(product))}>
+              <Button color='secondary'>{product.quantity}</Button>
+              <Button color='secondary' onClick={() => dispatch(add(product))}>
                 <AddIcon style={styles.icon} />
               </Button>
             </ButtonGroup>

@@ -1,24 +1,8 @@
-import { Box, CircularProgress } from '@mui/material'
-import { ThemeProvider } from '@mui/material/styles'
-import { theme } from '../utils/theme.js'
-
-const styles = {
-  box: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    background: '#000',
-    height: '100vh'
-  }
-}
+import { CircularProgress } from '@mui/material'
 
 const Spinner = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <Box sx={styles.box}>
-        <CircularProgress color='secondary' />
-      </Box>
-    </ThemeProvider>
+    <CircularProgress size={14} sx={{ color: '#fff' }} />
   )
 }
 

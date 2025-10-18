@@ -14,6 +14,11 @@ export const flexStart = {
   justifyContent: 'flex-start'
 };
 
+export const flexStart2 = { 
+  display: 'flex', 
+  alignItems: 'flex-start'
+};
+
 export const flexBetween = {
   display: 'flex',
   justifyContent: 'space-between'
@@ -22,6 +27,11 @@ export const flexBetween = {
 export const flexEnd = {
   display: 'flex',
   justifyContent: 'flex-end'
+};
+
+export const flexEnd2 = {
+  display: 'flex',
+  alignItems: 'flex-end'
 };
 
 export const flexCenter = {
@@ -50,6 +60,12 @@ export const flexColumnCenter = {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
+};
+
+export const flexColumnCenter2 = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
 };
 
 export const flexFullWidth = {

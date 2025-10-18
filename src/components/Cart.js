@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import CartCard from './CartCard'
 import CloseIcon from '@mui/icons-material/Close'
 import CircleIcon from '@mui/icons-material/Circle'
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined'
-import CartCard from './CartCard.js'
+import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Box, Divider, Drawer, IconButton, Stack, Typography } from '@mui/material'
-import { getTotal } from '../../redux/cartSlice.js'
+import { getTotal } from '../../redux/cartSlice'
+import { flexBetween, flexBetweenCenter } from '../themes/commonStyles'
 
 const styles = {
   icon: {
@@ -18,24 +19,22 @@ const styles = {
   },
   box: {
     background: '#000',
-    width: '400px',
+    width: '25rem',
     height: '100%',
     textAlign: 'center',
     p: 2,
+
     '@media (max-width: 430px)': {
-      width: '300px'
+      width: '18.75rem'
     }
   },
   stack: {
-    display: 'flex',
-    justifyContent: 'space-between'
+    ...flexBetween
   },
   stack2: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    ...flexBetweenCenter,
     ml: 1,
-    width: '380px'
+    width: '23.75rem'
   },
   divider: {
     bgcolor: '#808080',
@@ -45,7 +44,9 @@ const styles = {
 }
 
 const CartSidebar = () => {
+
   const [openDrawer, setOpenDrawer] = useState(false)
+
   const cart = useSelector(state => state.cart)
   const cartProducts = useSelector(state => state.cart.products) //read products state from cart store (array)
   const dispatch = useDispatch()
@@ -54,13 +55,9 @@ const CartSidebar = () => {
     dispatch(getTotal())
   }, [cart, dispatch]);
 
-  const handleOpen = () => {
-    setOpenDrawer(true)
-  };
+  const handleOpen = () => setOpenDrawer(true);
 
-  const handleClose = () => {
-    setOpenDrawer(false)
-  };
+  const handleClose = () => setOpenDrawer(false);
 
   const renderCart = (cartProducts) => {
     return (
@@ -68,7 +65,7 @@ const CartSidebar = () => {
         {cartProducts?.map((item) => (
           <CartCard key={item.id} product={item} />
         ))}
-        <Stack direction='row' sx={styles.stack2}>
+        <Stack sx={styles.stack2}>
           <Typography variant='subtitle1' color='secondary'>SUBTOTAL</Typography>
           <Typography variant='subtitle1' color='#b29d81'>S${cart.totalPrice}</Typography>
         </Stack>
@@ -78,14 +75,14 @@ const CartSidebar = () => {
 
   return (
     <>
-      <IconButton size='large' color='secondary' aria-label='cart' onClick={handleOpen}>
+      <IconButton size='large' color='secondary' onClick={handleOpen}>
         <ShoppingBagOutlinedIcon />
         {cartProducts.length > 0 && <CircleIcon style={styles.icon} />}
       </IconButton>
 
       <Drawer anchor='right' open={openDrawer} onClose={handleClose}>
         <Box sx={styles.box}>
-          <Stack direction='row' sx={styles.stack}>
+          <Stack sx={styles.stack}>
             <Typography variant='h4' color='secondary'>CART</Typography>
             <IconButton size='medium' color='secondary' onClick={handleClose}>
               <CloseIcon />
@@ -94,7 +91,9 @@ const CartSidebar = () => {
           <Divider sx={styles.divider} />
           {cartProducts?.length > 0 
             ? renderCart(cartProducts)
-            : <Typography variant='subtitle1' align='left' color='secondary'>Your cart is currently empty.</Typography>
+            : <Typography variant='subtitle1' align='left' color='secondary'>
+                Your cart is currently empty
+              </Typography>
           }
         </Box>
       </Drawer>

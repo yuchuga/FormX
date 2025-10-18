@@ -1,11 +1,10 @@
 import ProductCard from './ProductCard'
 import { Grid, Stack, Typography } from '@mui/material'
-import { sample } from '../../redux/search'
+import { PCData } from '../utils/data'
 
 const styles = {
   grid: {
-    display: 'flex',
-    justifyContent: 'center',
+    ...flexJustifyCenter,
     background: '#000',
   },
   text: {
@@ -15,16 +14,17 @@ const styles = {
 };
 
 const Products = () => {
-
   return (
     <div>
       <Stack>
         <Typography variant='h6' color='#fff' align='center' sx={styles.text}>X Series - ALL</Typography>
       </Stack>
       <Grid container spacing={4} sx={styles.grid}>
-        {sample.map((item) => (
-          <Grid item key={item.id} xs={12} sm={6} md={4} lg={3}>
-            <ProductCard product={item} />
+        {PCData.map((item) => (
+          <Grid key={item.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <Item>
+              <ProductCard product={item} />
+            </Item>
           </Grid>
         ))}
       </Grid>

@@ -5,6 +5,7 @@ export const theme = createTheme({
     primary: {
       main: '#000'
     },
+    
     secondary: {
       main: '#fff'
     },
@@ -39,7 +40,7 @@ export const theme = createTheme({
     MuiStack: {
       defaultProps: {
         direction: 'row',
-        spacing: 0,
+        spacing: 2,
       },
     },
     MuiButton: {

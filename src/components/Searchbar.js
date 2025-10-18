@@ -3,10 +3,11 @@ import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
 import { AppBar, Box, Dialog, Grid, IconButton, TextField, Toolbar, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
+import { flexCenter } from '../themes/commonStyles'
 
 const styles = {
   box: {
-    display: { xs: 'none', sm: 'none', md: 'block' }
+    display: { xs: 'none', md: 'block' }
   },
   modal: {
     background: '#000',
@@ -15,9 +16,7 @@ const styles = {
     maxWidth: '100vw',
   },
   grid: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
+    ...flexCenter
   },
   text: {
     width: '90%',
@@ -54,6 +53,7 @@ const Img = styled('img')({
 });
 
 const Searchbar = (props) => {
+  
   const { placeholder, data } = props
   // console.log('search', props)
 
@@ -63,20 +63,15 @@ const Searchbar = (props) => {
 
   const handleChange = (e) => {
     setSearchQuery(e.target.value.toLowerCase())
-    handleFilter();
+    handleFilter()
   };
 
   const handleFilter = () => {
-    const filteredList = data.filter((item) => 
-      item.title.toLowerCase().includes(searchQuery)
-    )
-
+    const filteredList = data.filter((item) => item.title.toLowerCase().includes(searchQuery))
     searchQuery !== '' ? setFilterData(filteredList) : setFilterData([])
   };
 
-  const handleOpen = () => {
-    setOpen(true)
-  };
+  const handleOpen = () => setOpen(true);
 
   const handleClose = () => {
     setFilterData([])
@@ -86,13 +81,13 @@ const Searchbar = (props) => {
 
   return (
     <Box class='search-div' sx={styles.box} >
-      <IconButton size='large' edge='start' color='inherit' aria-label='search' onClick={handleOpen} sx={styles.search1}>
+      <IconButton size='large' edge='start' color='inherit' onClick={handleOpen} sx={styles.search1}>
         <SearchIcon />
       </IconButton>
       <Dialog open={open} sx={styles.modal}>
         <AppBar sx={styles.appbar}>
           <Toolbar>
-            <IconButton size='large' edge='start' color='inherit' aria-label='search' sx={styles.search2}>
+            <IconButton size='large' edge='start' color='inherit' sx={styles.search2}>
               <SearchIcon />
             </IconButton>
             <TextField
@@ -102,12 +97,12 @@ const Searchbar = (props) => {
               onChange={handleChange}
               sx={styles.text}
             />
-            <IconButton size='large' edge='end' color='inherit' aria-label='close' onClick={handleClose} sx={styles.close}>
+            <IconButton size='large' edge='end' color='inherit' onClick={handleClose} sx={styles.close}>
               <CloseIcon />
             </IconButton>
           </Toolbar>
           <Toolbar>
-          {filterData.map((item, index) => {
+          {filterData?.map((item, index) => {
             return (
               <Grid container spacing={2} direction='row' key={index} sx={styles.grid}>
                 <Grid item xs={2}>

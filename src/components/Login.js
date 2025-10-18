@@ -1,48 +1,21 @@
-import * as Utils from '../utils/constants'
 import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
-import { Button, Container, Grid, InputAdornment, IconButton, TextField, Typography } from '@mui/material'
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import { Controller, useForm } from 'react-hook-form'
+import { Button, Container, InputAdornment, IconButton, TextField, Typography } from '@mui/material'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { AccountContext } from '../auth/Account'
+import * as Utils from '../utils/constants'
 
 const styles = {
-  grid: {
-    mt: -10,
-    minHeight: '100vh',
-    justifyContent: 'center'
+  container: {
+    ...flexCenter,
+    flexDirection: 'column',
+    height: '100vh'
   },
   title: {
     color: '#fff',
-    fontSize: '2.25rem',
-    fontWeight: 500,
-    textAlign: 'center',
     mb: 2
   }, 
-  text: {
-    '& .MuiInputLabel-root': {
-      color: '#fff',
-      '&.Mui-focused': {
-        color: '#fff'
-      }
-    },
-    '& .MuiOutlinedInput-root': {
-      color: '#fff',
-      '& > fieldset': {
-        border: '1px solid #fff'
-      },
-      '&.Mui-focused fieldset': {
-        border: '1px solid #fff'
-      },
-      '&:hover fieldset': {
-        border: '1px solid #fff'
-      }
-    },
-    '& .MuiFormHelperText-root': {
-      ml: 0
-    }
-  },
   button1: {
     background: '#9f8561',
     '&:hover': {
@@ -55,30 +28,17 @@ const styles = {
     '&:hover': {
       background: '#fff'
     }
-  },
-  icon: {
-    color: 'lightgray'
   }
 };
 
-const routes = {
-  account: '/account',
-  register: '/account/register'
-};
-
 const Login = () => {
-  const initialValues = {
-    email: '',
-    password: ''
-  };
 
-  const navigate = useNavigate();
-  const { authenticate } = useContext(AccountContext); //destructure
+  const navigate = useNavigate()
+  const { authenticate } = useContext(AccountContext)
 
-  const [state] = useState(initialValues);
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false)
 
-  const handleClick= () => {
+  const handleShowPassword = () => {
     setShowPassword((show) => !show)
   };
 
@@ -87,112 +47,90 @@ const Login = () => {
   };
 
   const onSubmit = async (data) => {
-    console.log('data', data)
     const email = data.email
     const password = data.password
-    console.log('email', email)
+
     authenticate(email, password)
       .then((data) => {
         console.log('Login', data) 
         if (data.accessToken){
-          navigate(routes.account)
+          navigate(Utils.ROUTES.ACCOUNT)
         }
       })
-      .catch((error) => {
-        console.error('Login Failure', error)
+      .catch((e) => {
+        console.error(e)
       })
   };
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    defaultValues: state
+  const { handleSubmit, control, formState: { errors } } = useForm({
+    defaultValues: {
+      email: '',
+      password: ''
+    }
   });
 
   return (
       <div style={{ background: '#000' }}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Container maxWidth='sm'>
-            <Grid container direction='column' spacing={2} sx={styles.grid}>
-              <Typography sx={styles.title}>LOGIN</Typography>
+          <Container maxWidth='xl' sx={styles.container}>
+            <Typography variant='h4' align='center' gutterBottom sx={styles.title}>LOGIN</Typography>
+              <Controller
+                name='email'
+                control={control}
+                rules={{ required: 'Email is required' }}
+                render={({ field }) => (
+                  <TextField 
+                    {...field}
+                    fullWidth 
+                    label='Email'
+                    margin='normal'
+                    error={!!errors.email}
+                    helperText={errors.email?.message}
+                    sx={styles.text}
+                  />
+                )}
+              />
 
-              <Grid item >
-                <TextField 
-                  fullWidth 
-                  label='Email' 
-                  placeholder='Enter your email'
-                  variant='outlined' 
-                  sx={styles.text}
-                  {...register('email', {
-                    required: 'Required',
-                    pattern: {
-                      value: Utils.EMAIL_REGEX,
-                      message: Utils.EMAIL_ERROR
-                    }
-                  })}
-                  error={!!errors?.email} //converts to boolean
-                  helperText={errors?.email && errors.email.message}
-                />
-              </Grid>
+              <Controller
+                name='password'
+                control={control}
+                rules={{ required: 'Password is required' }}
+                render={({ field }) => (
+                  <TextField 
+                    {...field}
+                    fullWidth
+                    label='Password'
+                    margin='normal'
+                    type={showPassword ? 'text' : 'password'}
+                    error={!!errors.password}
+                    helperText={errors.password?.message}
+                    sx={styles.text}
+                    slotProps={{
+                      input: {
+                        endAdornment: (
+                          <InputAdornment position='end'>
+                            <IconButton
+                              edge='end'
+                              onClick={handleShowPassword}
+                              onMouseDown={handleMouseDown}
+                            >
+                              {showPassword ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                          </InputAdornment>
+                        )
+                      }
+                    }}
+                  />
+                )}
+              />
 
-              <Grid item>
-                <TextField 
-                  fullWidth
-                  label='Password' 
-                  placeholder='Enter your password'
-                  variant='outlined'
-                  sx={styles.text}
-                  type={showPassword ? 'text' : 'password'}
-                  {...register('password', {
-                    required: 'Required',
-                    pattern: {
-                      value: Utils.PASSWORD_REGEX,
-                      message: Utils.PASSWORD_ERROR
-                    }
-                  })}
-                  error={!!errors?.password}
-                  helperText={errors?.password && errors.password.message}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position='end'>
-                        <IconButton
-                          onClick={handleClick}
-                          onMouseDown={handleMouseDown}
-                          edge='end'
-                        >
-                          {showPassword 
-                            ? <VisibilityIcon sx={{color: styles.icon}} /> 
-                            : <VisibilityOffIcon sx={{color: styles.icon}} />
-                          }
-                        </IconButton>
-                      </InputAdornment>
-                    )
-                  }}
-                />
-              </Grid>
+              <Button fullWidth type='submit' size='large' sx={styles.button1}>
+                SIGN IN
+              </Button>
 
-              <Grid item>
-                <Button 
-                  fullWidth
-                  type='submit' 
-                  size='large' 
-                  variant='contained'
-                  sx={styles.button1}
-                >
-                  SIGN IN
-                </Button>
-              </Grid>
-              
-              <Grid item>
-                <Button 
-                  fullWidth 
-                  size='large' 
-                  variant='contained' 
-                  href={routes.register} 
-                  sx={styles.button2}
-                >
-                  Create Account
-                </Button>
-              </Grid>
-            </Grid>
+              <Button fullWidth size='large' href={ROUTES.REGISTER} sx={styles.button2}>
+                Create Account
+              </Button>
           </Container>
         </form>
       </div>
