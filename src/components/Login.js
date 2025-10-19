@@ -1,9 +1,9 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Controller, useForm } from 'react-hook-form'
 import { Button, Container, InputAdornment, IconButton, TextField, Typography } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import { AccountContext } from '../auth/Account'
+import { useAccount } from '../auth/AccountProvider'
 import * as Utils from '../utils/constants'
 
 const styles = {
@@ -34,7 +34,7 @@ const styles = {
 const Login = () => {
 
   const navigate = useNavigate()
-  const { authenticate } = useContext(AccountContext)
+  const { authenticate } = useAccount()
 
   const [showPassword, setShowPassword] = useState(false)
 

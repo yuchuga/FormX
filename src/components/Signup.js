@@ -2,7 +2,7 @@ import { API } from 'aws-amplify'
 import { useNavigate } from 'react-router-dom'
 import { Controller, useForm } from 'react-hook-form'
 import { Button, Container, TextField, Typography } from '@mui/material'
-import * as Utils from '../utils/constants.js'
+import * as Utils from '../utils/constants'
 
 const styles = {
   container: {

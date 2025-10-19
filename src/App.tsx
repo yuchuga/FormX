@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { Account } from './auth/Account'
+import { AccountProvider } from './auth/AccountProvider'
 
 //Components
 import Login from './components/Login'
@@ -18,25 +18,25 @@ import AppThemeProvider from './themes/AppThemeProvider'
 function App() {
 
   return (
-      <Account>
+    <AccountProvider>
       <AppThemeProvider>
-      <Router>
-        <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/account/login" element={<Login />} />
-            <Route path="/account/register" element={<Signup />} />
-            <Route path="/account/:id" element={<Home />} />
-            <Route path="/collections/all" element={<Product />} />
-            <Route path="products/x1" element={<ProductDetails />} />
-            <Route path="products/n1" element={<ProductDetails />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/checkout/success" element={<Confirmation />} />
-            <Route path="/count" element={<Count />}/>
-          </Routes>
-      </Router>
+        <Router>
+          <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/account/login" element={<Login />} />
+              <Route path="/account/register" element={<Signup />} />
+              <Route path="/account/:id" element={<Home />} />
+              <Route path="/collections/all" element={<Product />} />
+              <Route path="products/x1" element={<ProductDetails />} />
+              <Route path="products/n1" element={<ProductDetails />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/checkout/success" element={<Confirmation />} />
+              <Route path="/count" element={<Count />}/>
+            </Routes>
+        </Router>
       </AppThemeProvider>  
-    </Account>
+    </AccountProvider>
   );
 }
 

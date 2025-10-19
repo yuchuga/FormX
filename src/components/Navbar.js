@@ -4,11 +4,11 @@ import CartSidebar from './Cart'
 import Searchbar from './Searchbar'
 import Sidebar from './Sidebar'
 import Navlinks from './Navlinks'
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { AppBar, IconButton, Stack, Toolbar } from '@mui/material'
-import { PCData } from '../utils/data.js'
-import { AccountContext } from '../auth/Account'
+import { PCData } from '../utils/data'
+import { useAccount } from '../auth/AccountProvider'
 import { ROUTES } from '../utils/constants'
 import { flexBetween } from '../themes/commonStyles'
 
@@ -25,21 +25,19 @@ const styles = {
 const Navbar = () => {
 
   const [status, setStatus] = useState(false) //login status
-  const { getSession, logout } = useContext(AccountContext)
+  const { getSession, logout } = useAccount()
 
   useEffect(() => {
     runSession()
   });
 
-  const runSession = () => {
-    getSession()
-      .then((session) => {
-        console.log('Session', session)
-        setStatus(true)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+  const runSession = async () => {
+    try {
+      await getSession()
+      setStatus(true)
+    } catch (e) {
+      console.error(e)
+    }
   };
   
   return (

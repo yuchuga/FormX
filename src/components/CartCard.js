@@ -2,8 +2,8 @@ import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 import { Button, ButtonGroup, Card, CardMedia, CardContent, Stack, Typography } from '@mui/material'
 import { useDispatch } from 'react-redux'
-import { add, decrease } from '../../redux/cartSlice.js'
-import { flexBetween, flexStart2 } from '../themes/commonStyles.js'
+import { add, decrease } from '../../redux/cartSlice'
+import { flexBetween, flexStart2 } from '../themes/commonStyles'
 
 const styles = {
   card: {
